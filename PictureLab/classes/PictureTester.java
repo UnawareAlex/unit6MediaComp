@@ -8,6 +8,7 @@
  */
 public class PictureTester
 {
+    
   /** Method to test zeroBlue */
   public static void testZeroBlue()
   {
