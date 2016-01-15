@@ -112,6 +112,63 @@ public class Picture extends SimplePicture
         }
   }
   
+  /**Method to negate picture */
+  public void negate()
+  {
+     Pixel[][] pixels = this.getPixels2D();
+     for (Pixel[] rowArray : pixels)
+     {
+         for (Pixel pixelObj : rowArray)
+         {
+             pixelObj.setGreen(255 - pixelObj.getGreen());
+             pixelObj.setRed(255 - pixelObj.getRed());
+             pixelObj.setBlue(255 - pixelObj.getBlue());
+            }
+        }
+    }
+  
+  /**Method to turn picture to shades of grey */
+  public void greyscale()
+  {
+     Pixel[][] pixels = this.getPixels2D();
+     int avg = 0;
+     for (Pixel[] rowArray : pixels)
+     {
+         for (Pixel pixelObj : rowArray)
+         {
+             avg = (pixelObj.getRed() + pixelObj.getGreen() + pixelObj.getBlue()) / 3;
+             pixelObj.setRed(avg);
+             pixelObj.setGreen(avg);
+             pixelObj.setBlue(avg);
+            }
+        }
+  }
+  
+  /**Method to crop and copy a region */
+  public void cropAndCopy( Picture sourcePicture, int startSourceRow, int endSourceRow, int startSourceCol, int endSourceCol,
+         int startDestRow, int startDestCol )
+  {
+    Pixel pixel = null;
+    newRow = startDestRow;
+    newCol = startDestCol;
+    Pixel[][] sourcePixels = sourcePicture.getPixels2D();
+    Pixel[][] destinationPixels = this.getPixels2D();
+    for (int row = startSourceRow; row < endSourceRow; row++)
+    {
+      for (int col = startSourceCol; col < endSourceCol; col++)
+      {
+         
+          
+        leftPixel = pixels[row][col];      
+        rightPixel = pixels[row]                       
+                         [mirrorPoint - col + mirrorPoint];
+        rightPixel.setColor(leftPixel.getColor());
+        count++;
+      }
+    }
+    System.out.println(count);
+  }
+  
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
     * from left to right */
