@@ -149,24 +149,61 @@ public class Picture extends SimplePicture
          int startDestRow, int startDestCol )
   {
     Pixel pixel = null;
-    newRow = startDestRow;
-    newCol = startDestCol;
+    int newRow = startDestRow;
+    int newCol = startDestCol;
     Pixel[][] sourcePixels = sourcePicture.getPixels2D();
     Pixel[][] destinationPixels = this.getPixels2D();
     for (int row = startSourceRow; row < endSourceRow; row++)
     {
       for (int col = startSourceCol; col < endSourceCol; col++)
       {
-         
-          
-        leftPixel = pixels[row][col];      
-        rightPixel = pixels[row]                       
-                         [mirrorPoint - col + mirrorPoint];
-        rightPixel.setColor(leftPixel.getColor());
-        count++;
+         destinationPixels[newRow][newCol].setColor(sourcePixels[row][col].getColor());
+         newCol++;
+      }
+      newRow++;
+      newCol = startDestCol;
+    }
+  }
+  
+  /**Method to scale a region */
+  public Picture scaleByHalf()
+  {
+    Pixel[][] sourcePixels = this.getPixels2D();
+    int newRowLength = (int)(sourcePixels.length * .5);
+    int newColLength = (int)(sourcePixels[0].length * .5);
+    Picture newPicture = new Picture(newRowLength, newColLength);
+    Pixel[][] destinationPixels = newPicture.getPixels2D();
+    int newRow = 0;
+    int newCol = 0;
+    for (int row = 0; row < sourcePixels.length; row += 2)
+    {
+      for (int col = 0; col < sourcePixels[0].length; col += 2)
+      {
+         destinationPixels[newRow][newCol].setColor(sourcePixels[row][col].getColor());
+         newCol++;
+      }
+      newRow++;
+      newCol = 0;
+    }
+    return newPicture;
+  }
+  
+  /**Method to rotate an image by 90 degrees to the right  */
+  public Picture rotate()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    int newRowLength = pixels[0].length;
+    int newColLength = pixels.length;
+    Picture newPicture = new Picture(newRowLength, newColLength);
+    Pixel[][] destinationPixels = newPicture.getPixels2D();
+    for (int row = 0; row < pixels.length; row++)
+    {
+      for (int col = 0; col < pixels[0].length; col++)
+      {
+         destinationPixels[col][row].setColor(pixels[row][col].getColor());
       }
     }
-    System.out.println(count);
+    return newPicture;
   }
   
   /** Method that mirrors the picture around a 

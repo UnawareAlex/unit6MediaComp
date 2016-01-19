@@ -81,6 +81,33 @@ public class PictureTester
     caterpillar.explore();
   }
   
+  /** Method to test cropAndCopy */
+  public static void testCropAndCopy()
+  {
+    Picture caterpillar = new Picture("caterpillar.jpg");
+    Picture caterpillar1 = new Picture("caterpillar.jpg");
+    caterpillar1.explore();
+    caterpillar1.cropAndCopy(caterpillar, 10, 100, 10, 100, 40, 50);
+    caterpillar1.explore();
+  }
+  
+  /** Method to test scaleByHalf */
+  public static void testScaleByHalf()
+  {
+    Picture beach = new Picture("beach.jpg");
+    beach.explore();
+    beach.scaleByHalf().explore();
+    //beach.explore();
+  }
+  
+  /** Method to test rotate */
+  public static void testRotate()
+  {
+    Picture beach = new Picture("beach.jpg");
+    beach.explore();
+    beach.rotate().explore();
+  }
+  
   /** Method to test mirrorTemple */
   public static void testMirrorTemple()
   {
