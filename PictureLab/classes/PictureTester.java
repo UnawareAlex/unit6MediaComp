@@ -120,9 +120,19 @@ public class PictureTester
   /** Method to test the collage method */
   public static void testCollage()
   {
-    Picture canvas = new Picture("640x480.jpg");
-    canvas.createCollage();
-    canvas.explore();
+   Picture source = new Picture("ren.jpg");
+    
+    
+   Picture kylo1 = new Picture("ren.jpg");
+   Picture small1 = kylo1.scaleByHalf();
+   
+   Picture kylo2 = new Picture("ren.jpg");
+   Picture small2 = kylo1.scaleByHalf();
+   
+   Picture canvas = new Picture(source.getHeight(), source.getWidth()); 
+   canvas.copy(small1, 0, 0);
+   canvas.copy(small2, small1.getHeight(), small1.getWidth());
+   canvas.explore();
   }
   
   /** Method to test edgeDetection */

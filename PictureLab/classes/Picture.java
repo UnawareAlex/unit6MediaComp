@@ -169,8 +169,8 @@ public class Picture extends SimplePicture
   public Picture scaleByHalf()
   {
     Pixel[][] sourcePixels = this.getPixels2D();
-    int newRowLength = (int)(sourcePixels.length * .5);
-    int newColLength = (int)(sourcePixels[0].length * .5);
+    int newRowLength = (int)(sourcePixels.length * .5) + (sourcePixels.length % 2);
+    int newColLength = (int)(sourcePixels[0].length * .5) + (sourcePixels[0].length % 2);
     Picture newPicture = new Picture(newRowLength, newColLength);
     Pixel[][] destinationPixels = newPicture.getPixels2D();
     int newRow = 0;
@@ -386,7 +386,7 @@ public class Picture extends SimplePicture
   {
     Picture beach = new Picture("beach.jpg");
     beach.explore();
-    beach.zeroBlue();
+    beach.createCollage();
     beach.explore();
   }
   
