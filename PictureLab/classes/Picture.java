@@ -112,6 +112,23 @@ public class Picture extends SimplePicture
         }
   }
   
+  /**Method to set yellow tint */
+  public void setYellow(int amountRed, int amountGreen)
+  {
+     Pixel[][] pixels = this.getPixels2D();
+
+     for (Pixel[] rowArray : pixels)
+     {
+         for (Pixel pixelObj : rowArray)
+         {
+             int red = pixelObj.getRed();
+             int green = pixelObj.getGreen();
+             pixelObj.setGreen(red + amountRed);
+             pixelObj.setRed(green + amountGreen);
+            }
+        }
+  }
+  
   /**Method to negate picture */
   public void negate()
   {
@@ -179,6 +196,40 @@ public class Picture extends SimplePicture
     {
       for (int col = 0; col < sourcePixels[0].length; col += 2)
       {
+         destinationPixels[newRow][newCol].setColor(sourcePixels[row][col].getColor());
+         newCol++;
+      }
+      newRow++;
+      newCol = 0;
+    }
+    return newPicture;
+  }
+  
+  /**Method to scale a region */
+  public Picture enlarge()
+  {
+    Pixel[][] sourcePixels = this.getPixels2D();
+    int newRowLength = (int)(sourcePixels.length * 2) + (sourcePixels.length % 2);
+    int newColLength = (int)(sourcePixels[0].length * 2) + (sourcePixels[0].length % 2);
+    Picture newPicture = new Picture(newRowLength, newColLength);
+    Pixel[][] destinationPixels = newPicture.getPixels2D();
+    int newRow = 0;
+    int newCol = 0;
+    for (int row = 0; row < sourcePixels.length; row++)
+    {
+      for (int col = 0; col < sourcePixels[0].length; col++)
+      {
+         destinationPixels[newRow][newCol].setColor(sourcePixels[row][col].getColor());
+         newCol++;
+         destinationPixels[newRow][newCol].setColor(sourcePixels[row][col].getColor());
+         newCol++;
+      }
+      newRow++;
+      newCol = 0;
+      for (int col = 0; col < sourcePixels[0].length; col++)
+      {
+         destinationPixels[newRow][newCol].setColor(sourcePixels[row][col].getColor());
+         newCol++;
          destinationPixels[newRow][newCol].setColor(sourcePixels[row][col].getColor());
          newCol++;
       }
@@ -278,26 +329,22 @@ public class Picture extends SimplePicture
     }
     
   /** Mirror just part of a picture of a temple */
-  public void mirrorTemple()
+  public void mirror(int rowStart, int colStart, int rowEnd, int colEnd)
   {
-    int mirrorPoint = 276;
     Pixel leftPixel = null;
     Pixel rightPixel = null;
     int count = 0;
     Pixel[][] pixels = this.getPixels2D();
     
     // loop through the rows
-    for (int row = 27; row < 97; row++)
+    for (int row = rowStart; row < rowEnd; row++)
     {
       // loop from 13 to just before the mirror point
-      for (int col = 13; col < mirrorPoint; col++)
+      for (int col = colStart; col < colEnd; col++)
       {
-        
-        leftPixel = pixels[row][col];      
-        rightPixel = pixels[row]                       
-                         [mirrorPoint - col + mirrorPoint];
+        leftPixel = pixels[row][col];
+        rightPixel = pixels[row][colEnd - 1 - col];
         rightPixel.setColor(leftPixel.getColor());
-        count++;
       }
     }
     System.out.println(count);

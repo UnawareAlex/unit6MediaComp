@@ -100,6 +100,13 @@ public class PictureTester
     //beach.explore();
   }
   
+  public static void testEnlarge()
+  {
+      Picture beach = new Picture("beach.jpg");
+      beach.explore();
+      beach.enlarge().explore();
+    }
+  
   /** Method to test rotate */
   public static void testRotate()
   {
@@ -109,29 +116,42 @@ public class PictureTester
   }
   
   /** Method to test mirrorTemple */
-  public static void testMirrorTemple()
-  {
-    Picture temple = new Picture("temple.jpg");
-    temple.explore();
-    temple.mirrorTemple();
-    temple.explore();
-  }
+//   public static void testMirrorTemple()
+//   {
+//     Picture temple = new Picture("temple.jpg");
+//     temple.explore();
+//     temple.mirrorTemple();
+//     temple.explore();
+//   }
   
   /** Method to test the collage method */
   public static void testCollage()
   {
-   Picture source = new Picture("ren.jpg");
-    
-    
-   Picture kylo1 = new Picture("ren.jpg");
-   Picture small1 = kylo1.scaleByHalf();
+   Picture source = new Picture("schmit.jpg");
    
-   Picture kylo2 = new Picture("ren.jpg");
-   Picture small2 = kylo1.scaleByHalf();
+    
+   Picture schmit1 = new Picture("schmit.jpg");
+   Picture pic1 = schmit1;
    
-   Picture canvas = new Picture(source.getHeight(), source.getWidth()); 
-   canvas.copy(small1, 0, 0);
-   canvas.copy(small2, small1.getHeight(), small1.getWidth());
+   Picture schmit2 = new Picture("schmit.jpg");
+   Picture pic2 = schmit2;
+   pic2.mirror(50, 363, 152, 442);
+   
+   
+   Picture schmit3 = new Picture("schmit.jpg");
+   Picture pic3 = schmit3;
+   pic3.negate();
+   
+   
+   Picture schmit4 = new Picture("schmit.jpg");
+   Picture pic4 = schmit4;
+   pic4.setYellow(100, 100);
+   
+   Picture canvas = new Picture(source.enlarge().getHeight(), source.enlarge().getWidth()); 
+   canvas.copy(pic1, 0, 0);
+   canvas.copy(pic2, 0, pic1.getWidth());
+   canvas.copy(pic3, pic1.getHeight(), 0);
+   canvas.copy(pic4, pic1.getHeight(), pic1.getWidth());
    canvas.explore();
   }
   
