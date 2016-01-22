@@ -129,6 +129,24 @@ public class Picture extends SimplePicture
         }
   }
   
+  /**Method to set color to specific tint*/
+  public void rainbow(int red, int green, int blue)
+  {
+     Pixel[][] pixels = this.getPixels2D();
+     for (Pixel[] rowArray : pixels)
+     {
+         for (Pixel pixelObj : rowArray)
+         {
+             int redPic = pixelObj.getRed();
+             int greenPic = pixelObj.getGreen();
+             int bluePic = pixelObj.getBlue();
+             pixelObj.setRed(redPic + red);
+             pixelObj.setGreen(greenPic + green);
+             pixelObj.setBlue(bluePic + blue);
+            }
+        }
+  }
+  
   /**Method to negate picture */
   public void negate()
   {

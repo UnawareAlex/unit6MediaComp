@@ -128,31 +128,49 @@ public class PictureTester
   public static void testCollage()
   {
    Picture source = new Picture("schmit.jpg");
-   
     
-   Picture schmit1 = new Picture("schmit.jpg");
-   Picture pic1 = schmit1;
+   Picture pic1 = new Picture("schmit.jpg");
+ 
+   Picture pic2 = new Picture("schmit.jpg");
+   pic2.mirrorVertical();
    
-   Picture schmit2 = new Picture("schmit.jpg");
-   Picture pic2 = schmit2;
-   pic2.mirror(50, 363, 152, 442);
-   
-   
-   Picture schmit3 = new Picture("schmit.jpg");
-   Picture pic3 = schmit3;
+   Picture pic3 = new Picture("schmit.jpg");
    pic3.negate();
    
-   
-   Picture schmit4 = new Picture("schmit.jpg");
-   Picture pic4 = schmit4;
+   Picture pic4 = new Picture("schmit.jpg");
    pic4.setYellow(100, 100);
    
+   Picture pic5 = new Picture("face.jpg");
+   Picture smallSchmit = pic5.scaleByHalf().scaleByHalf();
+   
+  
    Picture canvas = new Picture(source.enlarge().getHeight(), source.enlarge().getWidth()); 
    canvas.copy(pic1, 0, 0);
    canvas.copy(pic2, 0, pic1.getWidth());
    canvas.copy(pic3, pic1.getHeight(), 0);
    canvas.copy(pic4, pic1.getHeight(), pic1.getWidth());
+   int red = 222;
+   int green = 0;
+   int blue = 0;
+   int pic = 0;
+   for (int totalWidth = 0; totalWidth < canvas.getWidth(); totalWidth += smallSchmit.getWidth())
+   {
+       smallSchmit.rainbow(red, green, blue);
+       canvas.copy(smallSchmit, pic1.getHeight() - (smallSchmit.getHeight() / 2), totalWidth);
+       red -= 20;
+       if (pic % 2 == 0)
+       {
+           green += (2 * pic);
+        }
+       else
+       {
+           green -= (2 * pic);
+        }
+       blue += 5;
+   }
    canvas.explore();
+   canvas.write("C:\\Users\\gschmit\\Desktop\\GitHub\\unit6MediaComp\\images\\MyCollage.jpg");
+
   }
   
   /** Method to test edgeDetection */
